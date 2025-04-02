@@ -1,0 +1,11 @@
+<Project>
+    <PropertyGroup>
+        <!-- Code Quality -->
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+        <!-- Language Specification -->
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+</Project>
