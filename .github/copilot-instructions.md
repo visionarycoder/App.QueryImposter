@@ -1,27 +1,6 @@
 # GitHub Copilot Instructions 
 
 ## Technology Preferences
-
-### Frontend Framework
-- Use Blazor for building web applications.
-    ```csharp
-    @page "/counter"
-
-    <h1>Counter</h1>
-
-    <p>Current count: @currentCount</p>
-
-    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-    @code {
-        private int currentCount = 0;
-
-        private void IncrementCount()
-        {
-            currentCount++;
-        }
-    }
-    ```
       
 ### Language and Framework
 - Use C# for both client-side and server-side code.
@@ -30,157 +9,6 @@
     <PropertyGroup>
       <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
-    ```
-
-### Project Structure
-- Use a standard project structure with separate folders for `Pages`, `Components`, `Services`, and `wwwroot`.
-    ```
-    - MyBlazorApp/
-      - Pages/
-      - Components/
-      - Services/
-      - wwwroot/
-      - Program.cs
-      - Startup.cs
-    ```
-
-### Components
-- Create reusable components to promote code reuse and maintainability.
-    ```csharp
-    @code {
-        [Parameter]
-        public string Title { get; set; }
-
-        [Parameter]
-        public RenderFragment ChildContent { get; set; }
-    }
-
-    <div class="card">
-        <div class="card-header">
-            <h3>@Title</h3>
-        </div>
-        <div class="card-body">
-            @ChildContent
-        </div>
-    </div>
-    ```
-
-### Styling
-
-- Use CSS for styling components. Prefer using CSS isolation to scope styles to specific components.
-    ```css
-    /* MyComponent.razor.css */
-    .my-component {
-        background-color: #f8f9fa;
-        padding: 10px;
-        border: 1px solid #dee2e6;
-    }
-    ```
-
-### State Management
-
-- Use built-in Blazor state management for simple state scenarios. For more complex scenarios, consider using a library like `Blazored.LocalStorage`.
-    ```csharp
-    @inject Blazored.LocalStorage.ILocalStorageService localStorage
-
-    @code {
-        private async Task SaveData()
-        {
-            await localStorage.SetItemAsync("key", "value");
-        }
-
-        private async Task<string> LoadData()
-        {
-            return await localStorage.GetItemAsync<string>("key");
-        }
-    }
-    ```
-
-### Routing
-
-- Use the built-in Blazor router for navigation between pages.
-    ```csharp
-    @page "/fetchdata"
-
-    <h1>Fetch Data</h1>
-
-    @if (forecasts == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Date</td>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var forecast in forecasts)
-                {
-                    <tr>
-                        <td>@forecast.Date.ToShortDateString()</td>
-                        <td>@forecast.TemperatureC</td>
-                        <td>@forecast.TemperatureF</td>
-                        <td>@forecast.Summary</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-
-    @code {
-        private WeatherForecast[] forecasts;
-
-        protected override async Task OnInitializedAsync()
-        {
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
-        }
-    }
-    ```
-
-### Dependency Injection
-
-- Use ASP.NET Core's built-in dependency injection for services.
-    ```csharp
-    public void ConfigureServices(IServiceCollection services)
-    {
-        services.AddRazorPages();
-        services.AddServerSideBlazor();
-        services.AddScoped<IMyService, MyService>();
-    }
-    ```
-
-### Forms and Validation
-- Use Blazor's built-in support for forms and validation.
-    ```csharp
-    <EditForm Model="user" OnValidSubmit="HandleValidSubmit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-
-        <div>
-            <label>First Name:</label>
-            <InputText @bind-Value="user.FirstName" />
-        </div>
-        <div>
-            <label>Last Name:</label>
-            <InputText @bind-Value="user.LastName" />
-        </div>
-        <button type="submit">Submit</button>
-    </EditForm>
-
-    @code {
-        private User user = new User();
-
-        private void HandleValidSubmit()
-        {
-            // Handle form submission
-        }
-    }
     ```
 
 ### Database Preferences
@@ -207,21 +35,23 @@
     ```csharp
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ProductionSqlServer")));
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductionSqlServer")));
     }
 
     public class ApplicationDbContext : DbContext
     {
+        
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(Configuration.GetConnectionString("ProductionSqlServer"));
         }
+    
     }
     ```
-    ```json
+   
+-   ```json
     {
       "ConnectionStrings": {
         "ProductionSqlServer": "Server=yourproductionserver;Database=yourdb;User Id=yourusername;Password=yourpassword;"
@@ -242,7 +72,7 @@
         - Project B/ 
       - tests/
         - IntegrationTests/
-        - UnitTests 
+        - UnitTests/ 
     ```
 
 ### Tools and Frameworks
